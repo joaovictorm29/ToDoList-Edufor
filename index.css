@@ -1,0 +1,121 @@
+:root {
+  
+  --cor-primaria: #6ec6d9;
+
+  --cor-fundo: #f8f9fa;
+
+  --cor-check: #4CAF50;     
+  --cor-lixeira: #e53935;   
+  --cor-editar: #1e88e5;    
+
+  --cor-titulo: #f7f6f6;
+ 
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header {
+  background-color: var(--cor-primaria);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+}
+.header h1 {
+  color: var(--cor-titulo);
+  margin: 0;
+}
+.header h2 {
+  color: rgb(82, 107, 117);
+  margin: 0;
+  font-weight: normal;
+}
+
+.ToDo-Container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  max-width: 600px;
+  margin: 30px auto;
+
+  background: #f1f1f1;
+  padding: 18px;
+  border-radius: 20px;
+}
+
+.input-tarefa {
+  flex: 1;
+
+  padding: 14px 18px;
+
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+
+  border-radius: 14px;
+  border: 1px solid #9ed5e2;
+
+  background-color: #e8f1f4;
+}
+
+.input-tarefa::placeholder{
+  color: #7aa8b3;
+}
+
+.add-task-button{
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  border-radius: 14px;
+
+  background-color: #63b8c9;
+  color: white;
+
+  font-size: 28px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s;
+}
+
+.add-task-button:hover{
+  background-color: #4da6b8;
+}
+
+.lista-tarefas {
+ max-width: 600px;
+  margin: 20px auto;
+
+  background: #e8f1f4;
+
+  border-radius: 20px;
+  padding: 20px;
+
+  min-height: 200px;
+}
