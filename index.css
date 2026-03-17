@@ -1,0 +1,145 @@
+:root {
+  
+  --cor-primaria: #6ec6d9;
+
+  --cor-fundo: #f8f9fa;
+
+  --cor-check: #4CAF50;     
+  --cor-lixeira: #e53935;   
+  --cor-editar: #1e88e5;    
+
+  --cor-titulo: #f7f6f6;
+ 
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #eef5f7;
+  color: #2c3e50; 
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header {
+  padding: 50px 20px;
+  background-color: #6ec6d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px; 
+}
+
+.header h1 {
+  font-size: 42px; 
+  font-weight: 700;
+  letter-spacing: 8px;
+
+  color: #ffffff; 
+}
+
+.header h2 {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 3px;
+
+  color: rgba(255, 255, 255, 0.7); 
+}
+
+.main-container {
+  padding-top: 30px;
+}
+
+.ToDo-Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  max-width: 600px;
+  margin: 30px auto;
+
+  background: #ffffff; 
+  padding: 18px;
+  border-radius: 20px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+}
+
+.input-tarefa {
+  flex: 1;
+  padding: 14px 18px;
+
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 14px;
+  border: none; 
+
+  background-color: #f1f7f9;
+}
+
+.input-tarefa:focus {
+  outline: none;
+}
+
+.input-tarefa::placeholder {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.add-task-button{
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  border-radius: 14px;
+
+  background-color: #63b8c9;
+  color: white;
+
+  font-size: 28px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s;
+}
+
+.add-task-button:hover{
+  background-color: #4da6b8;
+}
+
+.lista-tarefas {
+  max-width: 600px;
+  margin: 20px auto;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+  padding: 20px;
+
+  min-height: 200px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
