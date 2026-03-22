@@ -4,10 +4,6 @@
 
   --cor-fundo: #f8f9fa;
 
-  --cor-check: #4CAF50;     
-  --cor-lixeira: #e53935;   
-  --cor-editar: #1e88e5;    
-
   --cor-titulo: #f7f6f6;
  
 }
@@ -25,15 +21,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .header {
