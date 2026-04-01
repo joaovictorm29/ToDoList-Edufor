@@ -45,6 +45,8 @@ function addTask() {
   input.value = '';
   console.log('Tarefa adicionada:', newTask);
   console.log('Total de tarefas:', tasks.length);
+
+  updateProgress();
 }
 
 // Conecta o botao do html a função
@@ -59,6 +61,23 @@ document.addEventListener('DOMContentLoaded', function() {
       addTask();
     }
   });
-  
+  updateProgress();
   console.log('Página carregada e botão conectado!');
 });
+
+function updateProgress() {
+  const total = tasks.length;
+  const concluidas = tasks.filter(task => task.done === true).length;
+
+  const fill = document.getElementById('progresso-fill');
+  const texto = document.getElementById('progresso-texto');
+
+  if (total === 0) {
+    fill.style.width = '0%';
+    texto.textContent = '0/0 concluídas';
+  } else {
+    const porcentagem = (concluidas / total) * 100;
+    fill.style.width = porcentagem + '%';
+    texto.textContent = concluidas + '/' + total + ' concluídas';
+  }
+}
