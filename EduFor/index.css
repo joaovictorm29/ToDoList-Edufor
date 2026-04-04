@@ -1,0 +1,508 @@
+:root {
+  --cor-primaria: #6ec6d9;
+  --cor-fundo: #f8f9fa;
+  --cor-titulo: #f7f6f6;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #eef5f7;
+  color: #2c3e50;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: #6ec6d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.header h1 {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: #ffffff;
+}
+
+.header h2 {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.main-container {
+  padding-top: 30px;
+}
+
+.ToDo-Container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 600px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.input-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-tarefa {
+  width: 100%;
+  padding: 14px 18px;
+  padding-right: 60px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background-color: #f1f7f9;
+  transition: border-color 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.input-tarefa:focus {
+  outline: none;
+  border-color: #6ec6d9;
+}
+
+.input-tarefa::placeholder {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.input-tarefa.input-error {
+  border-color: #e07070;
+  background-color: #fff5f5;
+}
+
+.input-tarefa.input-error::placeholder {
+  color: #c0392b;
+  opacity: 1;
+}
+
+.char-counter {
+  position: absolute;
+  right: 14px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #b0c4ca;
+  pointer-events: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.char-counter.char-counter-warning {
+  color: #e0a040;
+}
+
+.char-counter.char-counter-limit {
+  color: #e07070;
+}
+
+.add-task-button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 14px;
+  background-color: #63b8c9;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+
+.add-task-button:hover {
+  background-color: #4da6b8;
+  transform: scale(1.05);
+}
+
+.progresso-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.progresso-trilho {
+  width: 100%;
+  height: 12px;
+  background-color: #dce6e9;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progresso-fill {
+  height: 100%;
+  width: 0%;
+  background-color: #63b8c9;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+
+.progresso-texto {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #7a8a90;
+}
+
+/* ── Lista ──────────────────────────────────────────────── */
+
+.lista-tarefas {
+  max-width: 600px;
+  margin: 20px auto 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  min-height: 200px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 160px;
+  color: #a8b8be;
+}
+
+.empty-icon {
+  font-size: 36px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ── Task item ──────────────────────────────────────────── */
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 10px;
+  border-radius: 14px;
+  transition: background 0.15s;
+  animation: slideIn 0.22s ease both;
+  cursor: grab;
+  user-select: none;
+}
+
+.task-item:active {
+  cursor: grabbing;
+}
+
+.task-item:hover {
+  background-color: #f4fafb;
+}
+
+.task-item + .task-item {
+  border-top: 1px solid #edf2f3;
+}
+
+/* Drag indicators */
+.task-item.drag-over {
+  border-top: 2px solid #63b8c9;
+}
+
+.task-item.drag-over.drag-over-bottom {
+  border-top: none;
+  border-bottom: 2px solid #63b8c9;
+}
+
+.task-item.dragging {
+  opacity: 0.35;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.task-item.removing {
+  animation: slideOut 0.28s ease forwards;
+}
+
+@keyframes slideOut {
+  to { opacity: 0; transform: translateX(20px); }
+}
+
+/* Drag handle */
+.drag-handle {
+  color: #c8d8dc;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.task-item:hover .drag-handle {
+  color: #8ab8c2;
+}
+
+/* Checkbox */
+.task-check {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 8px;
+  border: 2px solid #b5d8e0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.task-item.done .task-check {
+  background-color: #63b8c9;
+  border-color: #63b8c9;
+}
+
+.task-check:hover {
+  border-color: #63b8c9;
+}
+
+/* Text */
+.task-text {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: #2c3e50;
+  transition: color 0.2s;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.task-item.done .task-text {
+  text-decoration: line-through;
+  color: #a8b8be;
+}
+
+/* Inline edit input */
+.edit-input {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  color: #2c3e50;
+  border: none;
+  border-bottom: 2px solid #63b8c9;
+  background: transparent;
+  padding: 2px 0;
+  outline: none;
+}
+
+/* Action buttons */
+.task-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.task-item:hover .task-actions,
+.task-item.editing .task-actions {
+  opacity: 1;
+}
+
+.task-edit,
+.task-delete {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.task-edit {
+  color: #c5d5d9;
+}
+
+.task-edit:hover {
+  background-color: #e8f4f7;
+  color: #63b8c9;
+}
+
+.task-delete {
+  color: #c5d5d9;
+}
+
+.task-delete:hover {
+  background-color: #fde8e8;
+  color: #e07070;
+}
+
+/* ── Toast ──────────────────────────────────────────────────── */
+
+.app-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: #2c3e50;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+  z-index: 10000;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+  max-width: 90vw;
+  white-space: normal;
+  text-align: center;
+}
+
+.app-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.app-toast--limit {
+  background: #c0392b;
+}
+
+.app-toast--empty {
+  background: #e07020;
+}
+
+.toast-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* ── Confirm modal ──────────────────────────────────────────── */
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 62, 80, 0.35);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.confirm-overlay--visible {
+  opacity: 1;
+}
+
+.confirm-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px 28px 24px;
+  max-width: 340px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  transform: scale(0.95);
+  transition: transform 0.22s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.confirm-overlay--visible .confirm-box {
+  transform: scale(1);
+}
+
+.confirm-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.confirm-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.confirm-desc {
+  font-size: 13px;
+  color: #7a8a90;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.confirm-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.confirm-btn:active {
+  transform: scale(0.97);
+}
+
+.confirm-btn--cancel {
+  background: #f1f7f9;
+  color: #5a7a85;
+}
+
+.confirm-btn--cancel:hover {
+  background: #e0eef2;
+}
+
+.confirm-btn--delete {
+  background: #e07070;
+  color: #fff;
+}
+
+.confirm-btn--delete:hover {
+  background: #c0392b;
+}
