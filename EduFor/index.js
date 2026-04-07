@@ -97,11 +97,19 @@ function startEdit(id) {
   function confirmEdit() {
     if (saved) return;
     saved = true;
-    const novo = editInput.value.trim();
+
+    let novo = editInput.value.trim();
+
+    // 🔹 Deixa a primeira letra maiúscula se for uma letra
+    if (novo.length > 0 && /[a-zA-ZÀ-ÿ]/.test(novo[0])) {
+      novo = novo[0].toUpperCase() + novo.slice(1);
+    }
+
     if (novo && novo !== task.text) {
       task.text = novo;
       saveTasks();
     }
+
     item.classList.remove('editing');
     renderTasks();
   }
@@ -211,7 +219,7 @@ function renderTasks() {
   if (tasks.length === 0) {
     lista.innerHTML = `
       <div class="empty-state">
-        <span class="empty-icon">📋</span>
+        <span class="empty-icon"><i class="bi bi-emoji-neutral"></i></span>
         <p>Nenhuma tarefa ainda.<br>Adicione uma acima!</p>
       </div>`;
     return;
@@ -277,8 +285,14 @@ function showToast(type) {
   if (toastTimer) clearTimeout(toastTimer);
 
   const messages = {
-    limit: { icon: '🚫', text: 'Limite atingido! Exclua uma tarefa para adicionar outra.' },
-    empty: { icon: '✏️', text: 'A tarefa não pode ser vazia.' }
+    limit: { 
+      icon: '<i class="bi bi-x-circle"></i>', 
+      text: 'Limite atingido! Exclua uma tarefa para adicionar outra.' 
+    },
+    empty: { 
+      icon: '<i class="bi bi-pencil"></i>', 
+      text: 'A tarefa não pode ser vazia.' 
+    }
   };
 
   const { icon, text } = messages[type];
@@ -309,7 +323,7 @@ function showConfirm(id) {
   overlay.className = 'confirm-overlay';
   overlay.innerHTML = `
     <div class="confirm-box">
-      <div class="confirm-icon">🗑️</div>
+      <div class="confirm-icon"><i class="bi bi-trash"></i></div>
       <p class="confirm-title">Excluir tarefa?</p>
       <p class="confirm-desc">${escapeHtml(preview)} será removida permanentemente.</p>
       <div class="confirm-buttons">
@@ -364,4 +378,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
   renderTasks();
   updateProgress();
+});
+
+document.addEventListener('keydown', function (e) {
+  const input = document.getElementById('task-input');
+
+  // ❌ NÃO ativar se já estiver digitando em algum input
+  if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+    return;
+  }
+
+  // ❌ Ignora teclas especiais
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+  // ✅ Só reage a teclas que geram caractere
+  if (e.key.length === 1) {
+    input.focus();
+
+    // coloca o caractere digitado dentro do input
+    input.value += e.key;
+
+    // atualiza contador
+    updateCharCounter(input.value.length);
+
+    e.preventDefault();
+  }
 });
