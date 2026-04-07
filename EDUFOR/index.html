@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Lista de Tarefas</title>
+</head>
+<body>
+
+<header class="header">
+    <h1>EDUFOR</h1>
+    <h2>—Lista de Tarefas—</h2>
+</header>
+
+<main class="main-container">
+
+    <section class="progresso-container">
+        <span class="progresso-texto" id="progresso-texto">0 de 0 tarefas concluídas</span>
+        <div class="progresso-trilho">
+            <div class="progresso-fill" id="progresso-fill"></div>
+        </div>
+    </section>
+
+    <section class="ToDo-Container">
+        <div class="input-wrapper">
+            <input type="text" id="task-input" placeholder="Digite sua tarefa aqui..." class="input-tarefa" maxlength="450">
+            <span class="char-counter" id="char-counter">0/450</span>
+        </div>
+        <button class="add-task-button">+</button>
+    </section>
+
+    <div class="tabs">
+        <div class="tab-indicator"></div>
+
+        <button class="tab active" data-tab="all">Todas</button>
+        <button class="tab" data-tab="done">Concluídas</button>
+    </div>
+
+    <section class="lista-tarefas" id="task-list"></section>
+
+    <div class="clear-completed" id="clear-completed"></div>
+
+</main>
+
+<script src="index.js"></script>
+</body>
+</html>
