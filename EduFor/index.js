@@ -225,7 +225,26 @@ function renderTasks() {
     return;
   }
 
-  const sorted = [...tasks].sort((a, b) => a.done - b.done);
+  let filtered = tasks;
+
+  if (currentTab === 'done') {
+    filtered = tasks.filter(t => t.done);
+  }
+
+  if (filtered.length === 0) {
+    const mensagem = currentTab === 'done'
+      ? 'Nenhuma tarefa concluída.<br>Marque uma tarefa como concluída!'
+      : 'Nenhuma tarefa ainda.<br>Adicione uma acima!';
+
+    lista.innerHTML = `
+      <div class="empty-state">
+        <span class="empty-icon"><i class="bi bi-emoji-neutral"></i></span>
+        <p>${mensagem}</p>
+      </div>`;
+    return;
+  }
+
+  const sorted = [...filtered].sort((a, b) => a.done - b.done);
 
   sorted.forEach((task, index) => {
     const item = document.createElement('div');
@@ -355,19 +374,28 @@ function showConfirm(id) {
 function updateProgress() {
   const total = tasks.length;
   const concluidas = tasks.filter(t => t.done).length;
+
   const fill = document.getElementById('progresso-fill');
   const texto = document.getElementById('progresso-texto');
+  const clearBtn = document.getElementById('clear-completed');
+
   if (total === 0) {
     fill.style.width = '0%';
-    texto.textContent = '0/0 concluídas';
+    texto.textContent = 'Nenhuma tarefa concluída';
   } else {
     fill.style.width = ((concluidas / total) * 100) + '%';
-    texto.textContent = concluidas + '/' + total + ' concluídas';
+    texto.textContent = `${concluidas} de ${total} tarefas concluídas`;
+  }
+
+  if (clearBtn) {
+    clearBtn.textContent = `Limpar concluídas (${concluidas})`;
+    clearBtn.style.display = concluidas > 0 ? 'block' : 'none';
   }
 }
 
 // ── Init ──────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
+
   document.querySelector('.add-task-button').addEventListener('click', addTask);
 
   const input = document.getElementById('task-input');
@@ -376,9 +404,31 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   input.addEventListener('input', () => updateCharCounter(input.value.length));
 
+  // 🔥 AQUI DENTRO
+  const indicator = document.querySelector('.tab-indicator');
+
+  document.querySelectorAll('.tab').forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      currentTab = btn.dataset.tab;
+      renderTasks();
+
+      // 🔥 move o indicador
+      indicator.style.transform = `translateX(${index * 100}%)`;
+    });
+  });
+
+  document.getElementById('clear-completed').addEventListener('click', clearCompleted);
+
   renderTasks();
   updateProgress();
 });
+
+
+// Escrever de qualquer lugar da pagina
 
 document.addEventListener('keydown', function (e) {
   const input = document.getElementById('task-input');
@@ -403,4 +453,74 @@ document.addEventListener('keydown', function (e) {
 
     e.preventDefault();
   }
+});
+
+// Seção do Clear das concluidas
+
+const clearBtn = document.getElementById('clear-completed');
+clearBtn.textContent = `Limpar concluídas (${concluidas})`;
+clearBtn.style.display = concluidas > 0 ? 'block' : 'none';
+
+function clearCompleted() {
+  const concluidas = tasks.filter(t => t.done);
+
+  if (concluidas.length === 0) return;
+
+  showConfirmClear();
+}
+
+function showConfirmClear() {
+  const existing = document.getElementById('confirm-modal');
+  if (existing) existing.remove();
+
+  const total = tasks.filter(t => t.done).length;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'confirm-modal';
+  overlay.className = 'confirm-overlay';
+  overlay.innerHTML = `
+    <div class="confirm-box">
+      <div class="confirm-icon"><i class="bi bi-trash"></i></div>
+      <p class="confirm-title">Limpar concluídas?</p>
+      <p class="confirm-desc">${total} tarefa(s) serão removidas.</p>
+      <div class="confirm-buttons">
+        <button class="confirm-btn confirm-btn--cancel" id="confirm-cancel">Cancelar</button>
+        <button class="confirm-btn confirm-btn--delete" id="confirm-ok">Limpar</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('confirm-overlay--visible'));
+
+  function close() {
+    overlay.classList.remove('confirm-overlay--visible');
+    setTimeout(() => overlay.remove(), 250);
+  }
+
+  document.getElementById('confirm-cancel').onclick = close;
+  document.getElementById('confirm-ok').onclick = () => {
+    tasks = tasks.filter(t => !t.done);
+    saveTasks();
+    renderTasks();
+    updateProgress();
+    close();
+  };
+}
+
+document.getElementById('clear-completed').addEventListener('click', clearCompleted);
+
+
+// Fim da sessao do botao de clear
+
+// Botao Switch
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    currentTab = btn.dataset.tab;
+    renderTasks();
+  });
 });

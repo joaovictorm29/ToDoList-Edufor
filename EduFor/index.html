@@ -10,11 +10,18 @@
 <body>
 
 <header class="header">
-    <h1>Edufor</h1>
+    <h1>EDUFOR</h1>
     <h2>—Lista de Tarefas—</h2>
 </header>
 
 <main class="main-container">
+
+    <section class="progresso-container">
+        <span class="progresso-texto" id="progresso-texto">0 de 0 tarefas concluídas</span>
+        <div class="progresso-trilho">
+            <div class="progresso-fill" id="progresso-fill"></div>
+        </div>
+    </section>
 
     <section class="ToDo-Container">
         <div class="input-wrapper">
@@ -24,15 +31,16 @@
         <button class="add-task-button">+</button>
     </section>
 
-    <section class="progresso-container">
-        <div class="progresso-trilho">
-            <div class="progresso-fill" id="progresso-fill"></div>
-        </div>
-        <span class="progresso-texto" id="progresso-texto">0/0 concluídas</span>
-    </section>
+    <div class="tabs">
+        <div class="tab-indicator"></div>
 
-    <section class="lista-tarefas" id="task-list">
-    </section>
+        <button class="tab active" data-tab="all">Todas</button>
+        <button class="tab" data-tab="done">Concluídas</button>
+    </div>
+
+    <section class="lista-tarefas" id="task-list"></section>
+
+    <div class="clear-completed" id="clear-completed"></div>
 
 </main>
 
