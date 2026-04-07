@@ -512,15 +512,3 @@ document.getElementById('clear-completed').addEventListener('click', clearComple
 
 
 // Fim da sessao do botao de clear
-
-// Botao Switch
-
-document.querySelectorAll('.tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    currentTab = btn.dataset.tab;
-    renderTasks();
-  });
-});
