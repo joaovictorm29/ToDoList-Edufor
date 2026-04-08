@@ -1,15 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
   --cor-primaria: #6ec6d9;
   --cor-fundo: #f8f9fa;
   --cor-titulo: #f7f6f6;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: #eef5f7;
-  color: #2c3e50;
 }
 
 * {
@@ -17,6 +11,14 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #eef5f7;
+  color: #2c3e50;
+}
+
+/* ── HEADER ───────────────────────── */
 
 .header {
   background-color: #6ec6d9;
@@ -36,14 +38,18 @@ body {
 
 .header h2 {
   font-size: 13px;
-  font-weight: 400;
   letter-spacing: 3px;
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* ── MAIN ───────────────────────── */
+
 .main-container {
   padding-top: 30px;
+  padding-bottom: 60px;
 }
+
+/* ── INPUT ───────────────────────── */
 
 .ToDo-Container {
   display: flex;
@@ -68,13 +74,17 @@ body {
   width: 100%;
   padding: 14px 18px;
   padding-right: 60px;
-  font-size: 15px;
-  font-weight: 500;
   border-radius: 14px;
   border: 2px solid transparent;
   background-color: #f1f7f9;
-  transition: border-color 0.2s;
   font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #2c3e50;
+  transition: border-color 0.2s;
+}
+
+.input-tarefa::placeholder {
+  color: #b0c4ca;
 }
 
 .input-tarefa:focus {
@@ -82,38 +92,24 @@ body {
   border-color: #6ec6d9;
 }
 
-.input-tarefa::placeholder {
-  font-weight: 400;
-  opacity: 0.7;
-}
-
-.input-tarefa.input-error {
-  border-color: #e07070;
-  background-color: #fff5f5;
-}
-
-.input-tarefa.input-error::placeholder {
-  color: #c0392b;
-  opacity: 1;
-}
-
+/* ← estava sem "top", ficava desalinhado */
 .char-counter {
   position: absolute;
   right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 11px;
-  font-weight: 500;
   color: #b0c4ca;
   pointer-events: none;
   transition: color 0.2s;
-  white-space: nowrap;
 }
 
-.char-counter.char-counter-warning {
-  color: #e0a040;
+.char-counter-warning {
+  color: #e8a838;
 }
 
-.char-counter.char-counter-limit {
-  color: #e07070;
+.char-counter-limit {
+  color: #e74c3c;
 }
 
 .add-task-button {
@@ -125,189 +121,196 @@ body {
   color: white;
   font-size: 28px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.2s;
+  transition: background-color 0.2s, transform 0.1s;
   flex-shrink: 0;
 }
 
 .add-task-button:hover {
   background-color: #4da6b8;
-  transform: scale(1.05);
 }
+
+.add-task-button:active {
+  transform: scale(0.93);
+}
+
+/* ── PROGRESSO ───────────────────────── */
 
 .progresso-container {
   max-width: 600px;
-  margin: 20px auto 10px;
+  margin: 0 auto 20px;
   padding: 0 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px; 
+  text-align: center;
 }
 
 .progresso-texto {
-  font-size: 14px;
   color: #6ec6d9;
-  margin-bottom: 5px; 
+  font-size: 14px;
   font-weight: 500;
 }
 
 .progresso-trilho {
   width: 100%;
   height: 10px;
-  background-color: #cfe8ef; 
+  background: #cfe8ef;
   border-radius: 999px;
   overflow: hidden;
+  margin-top: 10px;
 }
 
 .progresso-fill {
   height: 100%;
-  width: 0%;
-  background-color: #6ec6d9; 
+  background: #6ec6d9;
   border-radius: 999px;
   transition: width 0.4s ease;
 }
 
-/* ── Lista ──────────────────────────────────────────────── */
+/* ── TABS ───────────────────────── */
+
+.tabs {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 20px;
+  display: flex;
+  background: #fff;
+  border-radius: 16px;
+  padding: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* fundo deslizante */
+.tab-indicator {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: calc(50% - 6px);
+  height: calc(100% - 12px);
+  background-color: #6ec6d9;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  z-index: 0;
+}
+
+.tab {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #8faab1;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: color 0.3s;
+}
+
+.tab.active {
+  color: #ffffff;
+}
+
+/* ── LISTA ───────────────────────── */
 
 .lista-tarefas {
   max-width: 600px;
-  margin: 20px auto 40px;
-
+  margin: 0 auto;
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* espaço entre os cards */
-
-  background: transparent;
-  padding: 0 10px;
-  box-shadow: none;
+  gap: 12px;
 }
+
+/* ── EMPTY STATE ← não existia, mensagem ficava grudada à esquerda */
 
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  height: 160px;
+  gap: 12px;
+  padding: 60px 20px;
+  text-align: center;
   color: #a8b8be;
 }
 
 .empty-icon {
-  font-size: 36px;
-  opacity: 0.5;
+  font-size: 40px;
+  color: #b8d4da;
 }
 
 .empty-state p {
-  font-size: 14px;
-  text-align: center;
+  font-size: 15px;
   line-height: 1.6;
+  color: #a8b8be;
 }
 
-/* ── Task item ──────────────────────────────────────────── */
+/* ── TASK ITEM ───────────────────────── */
+
+/* animação de entrada */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .task-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px;
-
+  padding: 18px;
   background: #ffffff;
   border-radius: 16px;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
-  transition: all 0.15s ease;
-  animation: slideIn 0.22s ease both;
-
-  cursor: grab;
-  user-select: none;
-}
-
-.task-item:active {
-  cursor: grabbing;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  animation: slideIn 0.25s ease both;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .task-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-/* Drag indicators */
-.task-item.drag-over {
-  border-top: 2px solid #63b8c9;
-}
-
-.task-item.drag-over.drag-over-bottom {
-  border-top: none;
-  border-bottom: 2px solid #63b8c9;
-}
-
+/* estado de drag */
 .task-item.dragging {
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
+.task-item.drag-over {
+  border-top: 2px solid #6ec6d9;
 }
 
+.task-item.drag-over-bottom {
+  border-top: none;
+  border-bottom: 2px solid #6ec6d9;
+}
+
+/* estado de remoção */
 .task-item.removing {
-  animation: slideOut 0.28s ease forwards;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-@keyframes slideOut {
-  to { opacity: 0; transform: translateX(20px); }
-}
-
-/* Drag handle */
+/* drag handle */
 .drag-handle {
   color: #c8d8dc;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  transition: color 0.15s;
-}
-
-.task-item:hover .drag-handle {
-  color: #8ab8c2;
-}
-
-/* Checkbox */
-.task-check {
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  border-radius: 8px;
-  border: 2px solid #b5d8e0;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, border-color 0.2s;
+  cursor: grab;
   flex-shrink: 0;
 }
 
-.task-item.done .task-check {
-  background-color: #63b8c9;
-  border-color: #63b8c9;
+.drag-handle:active {
+  cursor: grabbing;
 }
 
-.task-check:hover {
-  border-color: #63b8c9;
-}
-
-/* Text */
+/* texto */
 .task-text {
   flex: 1;
   font-size: 15px;
-  font-weight: 500;
-  color: #2c3e50;
-  transition: color 0.2s;
   word-break: break-word;
   min-width: 0;
 }
@@ -317,125 +320,121 @@ body {
   color: #a8b8be;
 }
 
-/* Inline edit input */
+/* input de edição inline */
 .edit-input {
   width: 100%;
-  font-size: 15px;
-  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 2px solid #6ec6d9;
+  background: #f1f7f9;
   font-family: 'Inter', sans-serif;
+  font-size: 15px;
   color: #2c3e50;
-  border: none;
-  border-bottom: 2px solid #63b8c9;
-  background: transparent;
-  padding: 2px 0;
   outline: none;
 }
 
-/* Action buttons */
+/* ── BOTÕES DAS TASKS ───────────────────────── */
+
 .task-actions {
   display: flex;
-  gap: 4px;
-  opacity: 0;
-  transition: opacity 0.15s;
+  gap: 8px;
+  margin-left: auto;
   flex-shrink: 0;
 }
 
-.task-item:hover .task-actions,
-.task-item.editing .task-actions {
-  opacity: 1;
-}
-
-.task-edit,
-.task-delete {
-  width: 32px;
-  height: 32px;
+.btn-done,
+.btn-edit,
+.btn-delete {
+  width: 44px;
+  height: 44px;
   border: none;
-  border-radius: 10px;
-  background: transparent;
-  cursor: pointer;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, color 0.15s;
-}
-
-.task-edit {
-  color: #c5d5d9;
-}
-
-.task-edit:hover {
-  background-color: #e8f4f7;
-  color: #63b8c9;
-}
-
-.task-delete {
-  color: #c5d5d9;
-}
-
-.task-delete:hover {
-  background-color: #fde8e8;
-  color: #e07070;
-}
-
-/* ── Toast ──────────────────────────────────────────────────── */
-
-.app-toast {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%) translateY(16px);
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
-  border-radius: 14px;
-  background: #2c3e50;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: 'Inter', sans-serif;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
-  z-index: 10000;
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  white-space: nowrap;
-  max-width: 90vw;
-  white-space: normal;
-  text-align: center;
-}
-
-.app-toast--visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.app-toast--limit {
-  background: #c0392b;
-}
-
-.app-toast--empty {
-  background: #e07020;
-}
-
-.toast-icon {
   font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s;
   flex-shrink: 0;
 }
 
-/* ── Confirm modal ──────────────────────────────────────────── */
+.btn-done:hover,
+.btn-edit:hover,
+.btn-delete:hover {
+  opacity: 0.8;
+}
+
+.btn-done:active,
+.btn-edit:active,
+.btn-delete:active {
+  transform: scale(0.88);
+}
+
+.btn-done {
+  background: #d4f3e2;
+  color: #27ae60;
+}
+
+.btn-edit {
+  background: #d6ecf5;
+  color: #3498db;
+}
+
+.btn-delete {
+  background: #fde2e2;
+  color: #e74c3c;
+}
+
+/* ── BOTÃO LIMPAR CONCLUÍDAS ───────────────────────── */
+
+/* 
+  O container .clear-completed precisa de display: flex 
+  para centralizar — o JS vai setar display block/none 
+  mas o padding e max-width garantem o alinhamento.
+*/
+.clear-completed {
+  max-width: 600px;
+  margin: 16px auto 30px;
+  padding: 0 10px;
+}
+
+#clear-completed {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 14px;
+  background-color: #fde2e2;
+  color: #e74c3c;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  text-align: center;
+}
+
+#clear-completed:hover {
+  background-color: #f5c0c0;
+}
+
+#clear-completed:active {
+  transform: scale(0.98);
+}
+
+/* ── CONFIRM OVERLAY ───────────────────────── */
 
 .confirm-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(44, 62, 80, 0.35);
-  backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
+  z-index: 999;
   opacity: 0;
-  transition: opacity 0.22s ease;
+  transition: opacity 0.25s ease;
+  padding: 20px; /* evita colar nas bordas no mobile */
 }
 
 .confirm-overlay--visible {
@@ -443,29 +442,23 @@ body {
 }
 
 .confirm-box {
-  background: #fff;
+  background: #ffffff;
   border-radius: 20px;
-  padding: 32px 28px 24px;
-  max-width: 340px;
-  width: 90%;
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 320px;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-  transform: scale(0.95);
-  transition: transform 0.22s ease;
-  font-family: 'Inter', sans-serif;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  transform: scale(0.92) translateY(10px);
+  transition: transform 0.25s ease;
 }
 
 .confirm-overlay--visible .confirm-box {
-  transform: scale(1);
-}
-
-.confirm-icon {
-  font-size: 36px;
-  margin-bottom: 12px;
+  transform: scale(1) translateY(0);
 }
 
 .confirm-title {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
   color: #2c3e50;
   margin-bottom: 8px;
@@ -473,9 +466,8 @@ body {
 
 .confirm-desc {
   font-size: 13px;
-  color: #7a8a90;
-  line-height: 1.5;
-  margin-bottom: 24px;
+  color: #8faab1;
+  margin-bottom: 28px;
 }
 
 .confirm-buttons {
@@ -485,102 +477,133 @@ body {
 
 .confirm-btn {
   flex: 1;
-  padding: 12px;
+  padding: 13px;
   border: none;
   border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
   font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.confirm-btn:hover {
+  opacity: 0.85;
 }
 
 .confirm-btn:active {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
 .confirm-btn--cancel {
   background: #f1f7f9;
-  color: #5a7a85;
-}
-
-.confirm-btn--cancel:hover {
-  background: #e0eef2;
+  color: #5a7a84;
 }
 
 .confirm-btn--delete {
-  background: #e07070;
+  background: #fde2e2;
+  color: #e74c3c;
+}
+
+/* ── TOAST ← também não existia no CSS original ───────────────────────── */
+
+.app-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #2c3e50;
   color: #fff;
-}
-
-.confirm-btn--delete:hover {
-  background: #c0392b;
-}
-
-/* ── Botao de Clear das tarefas ──────────────────────────────────────────── */
-
-.clear-completed {
-  max-width: 600px;
-  margin: 10px auto 40px;
-  text-align: right;
-  font-size: 14px;
-  color: #9fb3b9;
-  cursor: pointer;
-  transition: color 0.2s;
-  padding: 0 20px;
-}
-
-.clear-completed:hover {
-  color: #e07070;
-}
-
-/* ── Botao Switch Todas/Concluidas ──────────────────────────────────────────── */
-
-.tabs {
-  position: relative;
-  max-width: 600px;
-  margin: 20px auto;
+  padding: 12px 20px;
+  border-radius: 14px;
   display: flex;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.tab {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 12px;
-  background: transparent;
-  cursor: pointer;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
   font-weight: 500;
-  color: #8faab1;
-  z-index: 1;
-  transition: color 0.2s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  white-space: nowrap;
 }
 
-.tab.active {
-  transform: scale(0.97);
-  color: white;
+.app-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
-.tab-indicator {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: calc(50% - 6px);
-  height: calc(100% - 12px);
-  background: #63b8c9;
-  border-radius: 12px;
-  transition: transform 0.25s ease;
+.app-toast--limit .toast-icon {
+  color: #e74c3c;
 }
 
-/* Estilo para a data de conclusão */
-.task-completed-at {
-  display: block;
-  font-size: 11px;
-  color: #8ab8c2;
-  margin-top: 4px;
-  font-weight: 400;
+.app-toast--empty .toast-icon {
+  color: #6ec6d9;
+}
+
+/* ── MOBILE ───────────────────────── */
+
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 28px;
+    letter-spacing: 4px;
+  }
+
+  .header h2 {
+    font-size: 11px;
+  }
+
+  .ToDo-Container {
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 10px;
+  }
+
+  .input-tarefa {
+    font-size: 16px; /* evita zoom automático no iOS */
+  }
+
+  .add-task-button {
+    width: 100%;
+    height: 48px;
+  }
+
+  .tabs {
+    margin: 0 10px 16px;
+  }
+
+  .lista-tarefas {
+    padding: 0 10px;
+  }
+
+  .task-item {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .btn-done,
+  .btn-edit,
+  .btn-delete {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .task-text {
+    font-size: 14px;
+  }
+
+  .clear-completed {
+    margin: 12px 10px 24px;
+    padding: 0;
+  }
+
+  .app-toast {
+    bottom: 20px;
+    font-size: 13px;
+    padding: 10px 16px;
+    max-width: calc(100vw - 40px);
+    white-space: normal;
+    text-align: center;
+  }
 }
