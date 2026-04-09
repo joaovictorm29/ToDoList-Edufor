@@ -72,9 +72,9 @@ function addTask() {
 function updateCharCounter(length) {
   const counter = document.getElementById('char-counter');
   if (!counter) return;
-  counter.textContent = length + '/450';
-  counter.classList.toggle('char-counter-warning', length >= 400);
-  counter.classList.toggle('char-counter-limit', length === 450);
+  counter.textContent = length + '/200';
+  counter.classList.toggle('char-counter-warning', length >= 180);
+  counter.classList.toggle('char-counter-limit', length === 200);
 }
 
 // ── Toggle done ─────────────────────────────────────────────
@@ -117,7 +117,7 @@ function startEdit(id) {
   item.classList.add('editing');
   const textSpan = item.querySelector('.task-text');
 
-  textSpan.innerHTML = `<input class="edit-input" type="text" value="${escapeAttr(task.text)}" maxlength="450">`;
+  textSpan.innerHTML = `<input class="edit-input" type="text" value="${escapeAttr(task.text)}" maxlength="200">`;
   const editInput = textSpan.querySelector('.edit-input');
   editInput.focus();
   editInput.select();
